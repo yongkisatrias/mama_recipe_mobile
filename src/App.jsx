@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
-import {PaperProvider, Searchbar} from 'react-native-paper';
+import {Image, SafeAreaView, StyleSheet, View} from 'react-native';
+import {PaperProvider, Searchbar, Text} from 'react-native-paper';
 
 function App() {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -24,6 +24,34 @@ function App() {
             style={styles.searchbar}
             placeholderTextColor={'#B6B6B6'}
           />
+          {/* Popular section */}
+          <Text style={styles.popularSection}>Popular for You</Text>
+          <View style={styles.popularImage}>
+            {[
+              {
+                icons: <Image source={require('./assets/assets-1.png')} />,
+                label: 'Soup',
+              },
+              {
+                icons: <Image source={require('./assets/assets-2.png')} />,
+                label: 'Chicken',
+              },
+              {
+                icons: <Image source={require('./assets/assets-3.png')} />,
+                label: 'Seafood',
+              },
+              {
+                icons: <Image source={require('./assets/assets-2.png')} />,
+                label: 'Dessert',
+              },
+            ].map((item, key) => (
+              <View key={key}>
+                {item.icons}
+                <Text style={styles.popularText}>{item.label}</Text>
+              </View>
+            ))}
+          </View>
+          {/* Popular section end */}
         </View>
       </SafeAreaView>
     </PaperProvider>
@@ -37,6 +65,22 @@ const styles = StyleSheet.create({
   },
   searchbar: {
     backgroundColor: '#EFEFEF',
+  },
+  popularSection: {
+    fontSize: 20,
+    fontWeight: 700,
+    marginTop: 20,
+  },
+  popularImage: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  popularText: {
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: 500,
+    marginTop: 5,
   },
 });
 
