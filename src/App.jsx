@@ -27,6 +27,7 @@ function App() {
       <SafeAreaView>
         <ScrollView>
           <View style={styles.root}>
+            {/* Searchbar */}
             <Searchbar
               placeholder="Search Pasta, Bread, etc"
               onChangeText={onChangeSearch}
@@ -34,6 +35,8 @@ function App() {
               style={styles.searchbar}
               placeholderTextColor={'#B6B6B6'}
             />
+            {/* Searchbar end */}
+
             {/* Popular section */}
             <Text style={styles.popularSection}>Popular for You</Text>
             <View style={styles.popularImage}>
@@ -81,6 +84,24 @@ function App() {
               </View>
             </ScrollView>
             {/* New recipe end */}
+
+            {/* Popular recipe */}
+            <Text style={styles.popularRecipeSection}>Popular Recipes</Text>
+            {[...new Array(5)].map((item, key) => (
+              <View style={styles.popularRecipe}>
+                <Image source={require('./assets/food-2.png')} />
+                <View>
+                  <Text>Teriyaki Salmon</Text>
+                  <Text>spicy, salted</Text>
+                  <View style={styles.rate}>
+                    <Image source={require('./assets/icon-star.png')} />
+                    <Text>4.7</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+
+            {/* Popular recipe end */}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -90,7 +111,7 @@ function App() {
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     padding: 20,
   },
   searchbar: {
@@ -113,14 +134,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   newRecipesSection: {
-    fontSize: 20,
-    fontWeight: 500,
+    fontSize: 18,
+    fontWeight: 700,
     marginTop: 20,
   },
   newRecipeImage: {
     height: 160,
     width: 130,
-    paddingLeft: 0,
     paddingBottom: 10,
     justifyContent: 'flex-end',
   },
@@ -129,6 +149,20 @@ const styles = StyleSheet.create({
     padding: 20,
     fontSize: 14,
     fontWeight: 500,
+  },
+  popularRecipeSection: {
+    fontSize: 18,
+    fontWeight: 700,
+  },
+  popularRecipe: {
+    flexDirection: 'row',
+    gap: 15,
+    paddingTop: 15,
+  },
+  rate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
   },
 });
 
