@@ -42,19 +42,21 @@ function App() {
             <View style={styles.popularImage}>
               {[
                 {
-                  icons: <Image source={require('./assets/assets-1.png')} />,
+                  icons: <Image source={require('./assets/hot-soup.png')} />,
                   label: 'Soup',
                 },
                 {
-                  icons: <Image source={require('./assets/assets-2.png')} />,
+                  icons: (
+                    <Image source={require('./assets/roasted-chicken.png')} />
+                  ),
                   label: 'Chicken',
                 },
                 {
-                  icons: <Image source={require('./assets/assets-3.png')} />,
+                  icons: <Image source={require('./assets/fish.png')} />,
                   label: 'Seafood',
                 },
                 {
-                  icons: <Image source={require('./assets/assets-2.png')} />,
+                  icons: <Image source={require('./assets/pancake.png')} />,
                   label: 'Dessert',
                 },
               ].map((item, key) => (
@@ -71,7 +73,7 @@ function App() {
             <ScrollView horizontal>
               <View style={{flexDirection: 'row'}}>
                 {[...new Array(8)].map((item, key) => (
-                  <View>
+                  <View style={{marginTop: 10}}>
                     <ImageBackground
                       source={require('./assets/food-1.png')}
                       resizeMode="cover"
@@ -87,15 +89,15 @@ function App() {
 
             {/* Popular recipe */}
             <Text style={styles.popularRecipeSection}>Popular Recipes</Text>
-            {[...new Array(5)].map((item, key) => (
+            {[...new Array(8)].map((item, key) => (
               <View style={styles.popularRecipe}>
                 <Image source={require('./assets/food-2.png')} />
                 <View>
-                  <Text>Teriyaki Salmon</Text>
-                  <Text>spicy, salted</Text>
+                  <Text style={styles.recipeName}>Teriyaki Salmon</Text>
+                  <Text style={styles.recipeCategory}>spicy, salted</Text>
                   <View style={styles.rate}>
                     <Image source={require('./assets/icon-star.png')} />
-                    <Text>4.7</Text>
+                    <Text style={styles.rateText}>4.7</Text>
                   </View>
                 </View>
               </View>
@@ -159,10 +161,22 @@ const styles = StyleSheet.create({
     gap: 15,
     paddingTop: 15,
   },
+  recipeName: {
+    fontSize: 16,
+    fontWeight: 500,
+  },
+  recipeCategory: {
+    fontSize: 12,
+    fontWeight: 400,
+  },
   rate: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+  },
+  rateText: {
+    fontSize: 12,
+    fontWeight: 400,
   },
 });
 
