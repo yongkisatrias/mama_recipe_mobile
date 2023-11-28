@@ -94,7 +94,7 @@ function App() {
                 <Image source={require('./assets/food-2.png')} />
                 <View>
                   <Text style={styles.recipeName}>Teriyaki Salmon</Text>
-                  <Text style={styles.recipeCategory}>spicy, salted</Text>
+                  <Text style={styles.recipeCategory}>Spicy, Salted</Text>
                   <View style={styles.rate}>
                     <Image source={require('./assets/icon-star.png')} />
                     <Text style={styles.rateText}>4.7</Text>
