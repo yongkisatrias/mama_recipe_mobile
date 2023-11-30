@@ -14,6 +14,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // Screen
 import HomeScreen from './screens/Home.screen';
+import DetailRecipeScreen from './screens/DetailRecipe.screen';
 
 function App() {
   const Stack = createNativeStackNavigator();
@@ -25,6 +26,11 @@ function App() {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Detail_Recipe"
+            component={DetailRecipeScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
