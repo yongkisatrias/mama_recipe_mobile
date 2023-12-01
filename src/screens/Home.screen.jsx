@@ -6,10 +6,11 @@ import {
   View,
   ScrollView,
   SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
 import {Searchbar, Text} from 'react-native-paper';
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
 
@@ -63,15 +64,18 @@ function HomeScreen() {
           <ScrollView horizontal>
             <View style={{flexDirection: 'row'}}>
               {[...new Array(8)].map((item, key) => (
-                <View style={{marginTop: 10}}>
-                  <ImageBackground
-                    source={require('../assets/food-1.png')}
-                    resizeMode="cover"
-                    style={styles.newRecipeImage}
-                    key={key}>
-                    <Text style={styles.newRecipeText}>Banana Lemonilo</Text>
-                  </ImageBackground>
-                </View>
+                <TouchableOpacity
+                  key={key}
+                  onPress={() => navigation.navigate('Detail_Recipe')}>
+                  <View style={{marginTop: 10}}>
+                    <ImageBackground
+                      source={require('../assets/food-1.png')}
+                      resizeMode="cover"
+                      style={styles.newRecipeImage}>
+                      <Text style={styles.newRecipeText}>Banana Lemonilo</Text>
+                    </ImageBackground>
+                  </View>
+                </TouchableOpacity>
               ))}
             </View>
           </ScrollView>
@@ -80,17 +84,21 @@ function HomeScreen() {
           {/* Popular recipe */}
           <Text style={styles.popularRecipeSection}>Popular Recipes</Text>
           {[...new Array(8)].map((item, key) => (
-            <View style={styles.popularRecipe}>
-              <Image source={require('../assets/food-2.png')} />
-              <View>
-                <Text style={styles.recipeName}>Teriyaki Salmon</Text>
-                <Text style={styles.recipeCategory}>Spicy, Salted</Text>
-                <View style={styles.rate}>
-                  <Image source={require('../assets/icon-star.png')} />
-                  <Text style={styles.rateText}>4.7</Text>
+            <TouchableOpacity
+              key={key}
+              onPress={() => navigation.navigate('Detail_Recipe')}>
+              <View style={styles.popularRecipe}>
+                <Image source={require('../assets/food-2.png')} />
+                <View>
+                  <Text style={styles.recipeName}>Teriyaki Salmon</Text>
+                  <Text style={styles.recipeCategory}>Spicy, Salted</Text>
+                  <View style={styles.rate}>
+                    <Image source={require('../assets/icon-star.png')} />
+                    <Text style={styles.rateText}>4.7</Text>
+                  </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
           {/* Popular recipe end */}
         </View>
