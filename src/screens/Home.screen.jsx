@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Searchbar, Text} from 'react-native-paper';
+import recipeList from '../data/recipe.json';
 
 function HomeScreen({navigation}) {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -62,44 +63,56 @@ function HomeScreen({navigation}) {
           {/* New recipe */}
           <Text style={styles.newRecipesSection}>New Recipes</Text>
           <ScrollView horizontal>
-            <View style={{flexDirection: 'row'}}>
-              {[...new Array(8)].map((item, key) => (
-                <TouchableOpacity
-                  key={key}
-                  onPress={() => navigation.navigate('Detail_Recipe')}>
-                  <View style={{marginTop: 10}}>
-                    <ImageBackground
-                      source={require('../assets/food-1.png')}
-                      resizeMode="cover"
-                      style={styles.newRecipeImage}>
-                      <Text style={styles.newRecipeText}>Banana Lemonilo</Text>
-                    </ImageBackground>
-                  </View>
-                </TouchableOpacity>
-              ))}
+            <View style={{flexDirection: 'row', gap: 20}}>
+              {recipeList
+                ?.filter(item => item.isNew)
+                .map((item, key) => (
+                  <TouchableOpacity
+                    key={key}
+                    onPress={() => navigation.navigate('Detail_Recipe', item)}>
+                    <View style={{marginTop: 10}}>
+                      <ImageBackground
+                        source={{uri: item.image}}
+                        resizeMode="cover"
+                        imageStyle={{borderRadius: 10}}
+                        style={styles.newRecipeImage}>
+                        <Text style={styles.newRecipeText}>{item.title}</Text>
+                        <View style={styles.rateNewRecipe}>
+                          <Image source={require('../assets/icon-star.png')} />
+                          <Text style={styles.rateTextNewRecipe}>4.7</Text>
+                        </View>
+                      </ImageBackground>
+                    </View>
+                  </TouchableOpacity>
+                ))}
             </View>
           </ScrollView>
           {/* New recipe end */}
 
           {/* Popular recipe */}
           <Text style={styles.popularRecipeSection}>Popular Recipes</Text>
-          {[...new Array(8)].map((item, key) => (
-            <TouchableOpacity
-              key={key}
-              onPress={() => navigation.navigate('Detail_Recipe')}>
-              <View style={styles.popularRecipe}>
-                <Image source={require('../assets/food-2.png')} />
-                <View>
-                  <Text style={styles.recipeName}>Teriyaki Salmon</Text>
-                  <Text style={styles.recipeCategory}>Spicy, Salted</Text>
-                  <View style={styles.rate}>
-                    <Image source={require('../assets/icon-star.png')} />
-                    <Text style={styles.rateText}>4.7</Text>
+          {recipeList
+            ?.filter(item => item.isPopular === true)
+            .map((item, key) => (
+              <TouchableOpacity
+                key={key}
+                onPress={() => navigation.navigate('Detail_Recipe', item)}>
+                <View style={styles.popularRecipe}>
+                  <Image
+                    source={{uri: item.image}}
+                    style={{width: 60, height: 60}}
+                  />
+                  <View>
+                    <Text style={styles.recipeName}>{item.title}</Text>
+                    <Text style={styles.recipeCategory}>Spicy, Salted</Text>
+                    <View style={styles.rate}>
+                      <Image source={require('../assets/icon-star.png')} />
+                      <Text style={styles.rateText}>4.7</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          ))}
+              </TouchableOpacity>
+            ))}
           {/* Popular recipe end */}
         </View>
       </ScrollView>
@@ -139,16 +152,34 @@ const styles = StyleSheet.create({
   newRecipeImage: {
     height: 160,
     width: 130,
-    paddingBottom: 10,
     justifyContent: 'flex-end',
   },
   newRecipeText: {
     color: '#fff',
-    padding: 20,
-    fontSize: 14,
-    fontWeight: 500,
+    paddingLeft: 10,
+    fontSize: 16,
+    fontWeight: 800,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+  },
+  rateNewRecipe: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingBottom: 10,
+    gap: 5,
+  },
+  rateTextNewRecipe: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 400,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
   },
   popularRecipeSection: {
+    marginTop: 15,
     fontSize: 18,
     fontWeight: 700,
   },
