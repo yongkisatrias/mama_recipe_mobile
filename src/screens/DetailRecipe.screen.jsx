@@ -11,8 +11,9 @@ import {
 import {Text, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 
-function DetailRecipeScreen({navigation}) {
+function DetailRecipeScreen({navigation, route}) {
   const [bodyView, setBodyView] = React.useState('ingredients');
+  const {image, title, slug, ingredients, youtube, made} = route.params;
 
   return (
     <SafeAreaView>
@@ -20,7 +21,7 @@ function DetailRecipeScreen({navigation}) {
         <View style={styles.root}>
           {/* Hero Section */}
           <ImageBackground
-            source={require('../assets/dummy-pic.png')}
+            source={{uri: image}}
             style={styles.heroImage}
             resizeMode="cover">
             <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -29,8 +30,8 @@ function DetailRecipeScreen({navigation}) {
               </Text>
             </TouchableOpacity>
             <View style={styles.heroTitle}>
-              <Text style={styles.foodTitle}>Sandwich with Egg</Text>
-              <Text style={styles.chefName}>By Chef Ronald Humson</Text>
+              <Text style={styles.foodTitle}>{title}</Text>
+              <Text style={styles.chefName}>By {made}</Text>
             </View>
           </ImageBackground>
           {/* Hero Section End */}
@@ -73,12 +74,7 @@ function DetailRecipeScreen({navigation}) {
             {/* Body view */}
             {bodyView === 'ingredients' ? (
               <View style={styles.bodyViewBackground}>
-                <Text style={styles.bodyViewText}>
-                  - 2 slices whole-grain bread (bakery-fresh recommended){'\n'}-
-                  1 tablespoon hummus{'\n'}- 2 slices tomato{'\n'}- 1/2 small
-                  cucumber, thinly sliced lengthwise{'\n'}- 1 slice low-fat
-                  cheese
-                </Text>
+                <Text style={styles.bodyViewText}>{ingredients}</Text>
               </View>
             ) : null}
             {bodyView === 'video step' ? (
@@ -93,12 +89,9 @@ function DetailRecipeScreen({navigation}) {
                     <Icon name="play" size={40} color="#EEC302" />
                     <View style={{paddingRight: 30}}>
                       <Text style={styles.videoStepTitle}>
-                        Beef Steak with Curry Sauce - [Step 4] Cut the condiment
-                        and then mix it
+                        {youtube?.title}
                       </Text>
-                      <Text style={styles.videoStepLink}>
-                        https://www.youtube.com/watch?v=dQw4w9WgXcQ
-                      </Text>
+                      <Text style={styles.videoStepLink}>{youtube?.link}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -135,7 +128,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   chefName: {
-    color: '#B0B0B0',
+    color: '#FBFBFB',
     fontSize: 15,
     fontWeight: 400,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
