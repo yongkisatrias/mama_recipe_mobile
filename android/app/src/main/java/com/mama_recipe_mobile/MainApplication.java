@@ -9,10 +9,10 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
-import androidx.multidex.MultidexApplication;
+// import androidx.multidex.MultidexApplication;
 // import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 
-public class MainApplication extends MultidexApplication implements ReactApplication {
+public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new DefaultReactNativeHost(this) {
