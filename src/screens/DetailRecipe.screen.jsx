@@ -9,21 +9,29 @@ import {
   Linking,
   Image,
 } from 'react-native';
-import {Text, Button, TextInput} from 'react-native-paper';
+import {Text, Button, TextInput, Snackbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function DetailRecipeScreen({navigation, route}) {
   const [bodyView, setBodyView] = React.useState('ingredients');
   const {image, title, ingredients, youtube, made, slug} = route.params;
   const [commentList, setCommentList] = React.useState([]);
   const [message, setMessage] = React.useState('');
+  const [visible, setVisible] = React.useState(false);
+  const [messagesSnackbar, setMessagesSnackbar] = React.useState('');
+  const [snackbarBackground, setSnackbarBackground] = React.useState('');
+
+  const onDismissSnackBar = () => setVisible(false);
 
   React.useEffect(() => {
     handleGetComment();
   }, []);
 
-  const handleGetComment = () => {
+  const handleGetComment = async () => {
+    // await AsyncStorage.removeItem('user');
+
     firestore()
       .collection('comment')
       .where('recipeSlug', '==', slug)
@@ -37,25 +45,60 @@ function DetailRecipeScreen({navigation, route}) {
       });
   };
 
-  const handleComment = () => {
-    firestore()
-      .collection('comment')
-      .add({
-        name: 'user',
-        photo: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
-        recipeSlug: slug,
-        comment: message,
-        created_at: new Date().getTime(),
-      })
-      .then(() => {
-        handleGetComment();
-      });
+  const handleComment = async () => {
+    const user = await AsyncStorage.getItem('user');
+    if (user) {
+      firestore()
+        .collection('comment')
+        .add({
+          name: JSON.parse(user).fullname,
+          photo:
+            JSON.parse(user).photo ??
+            'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
+          recipeSlug: slug,
+          comment: message,
+          created_at: new Date().getTime(),
+        })
+        .then(() => {
+          setVisible(true);
+          setMessagesSnackbar('Comment successfully added');
+          setSnackbarBackground('#75b798');
+
+          handleGetComment();
+        });
+    } else {
+      setVisible(true);
+      setMessagesSnackbar('Please login first before comment');
+      setSnackbarBackground('#ea868f');
+
+      setTimeout(() => {
+        navigation.navigate('Login');
+      }, 2000);
+    }
   };
 
   return (
     <SafeAreaView>
+      {/* Snackbar */}
+      <Snackbar
+        wrapperStyle={{top: 0}}
+        style={{
+          backgroundColor: snackbarBackground,
+          zIndex: 999,
+        }}
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        action={{
+          label: 'x',
+          onPress: () => {
+            onDismissSnackBar;
+          },
+        }}>
+        <Text style={{color: '#fff'}}>{messagesSnackbar}</Text>
+      </Snackbar>
+      {/* Snackbar end */}
       <ScrollView>
-        <View style={styles.root}>
+        <View>
           {/* Hero Section */}
           <ImageBackground
             source={{uri: image}}
