@@ -25,7 +25,7 @@ function App() {
     <NavigationContainer>
       <PaperProvider>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Home"
             component={HomeScreen}
             options={{headerShown: false}}
@@ -34,17 +34,17 @@ function App() {
             name="Detail_Recipe"
             component={DetailRecipeScreen}
             options={{headerShown: false}}
-          /> */}
+          />
           <Stack.Screen
             name="Register"
             component={Register}
             options={{headerShown: false}}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Login"
             component={Login}
             options={{headerShown: false}}
-          /> */}
+          />
         </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>
