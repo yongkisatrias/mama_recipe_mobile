@@ -11,10 +11,46 @@ import {
 } from 'react-native';
 import {Text, Button, TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
+import firestore from '@react-native-firebase/firestore';
 
 function DetailRecipeScreen({navigation, route}) {
   const [bodyView, setBodyView] = React.useState('ingredients');
-  const {image, title, slug, ingredients, youtube, made} = route.params;
+  const {image, title, ingredients, youtube, made, slug} = route.params;
+  const [commentList, setCommentList] = React.useState([]);
+  const [message, setMessage] = React.useState('');
+
+  React.useEffect(() => {
+    handleGetComment();
+  }, []);
+
+  const handleGetComment = () => {
+    firestore()
+      .collection('comment')
+      .where('recipeSlug', '==', slug)
+      .get()
+      .then(querySnapshot => {
+        let tempData = [];
+        querySnapshot.forEach(documentSnapshot => {
+          tempData.push(documentSnapshot);
+        });
+        setCommentList(tempData);
+      });
+  };
+
+  const handleComment = () => {
+    firestore()
+      .collection('comment')
+      .add({
+        name: 'user',
+        photo: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
+        recipeSlug: slug,
+        comment: message,
+        created_at: new Date().getTime(),
+      })
+      .then(() => {
+        handleGetComment();
+      });
+  };
 
   return (
     <SafeAreaView>
@@ -102,25 +138,36 @@ function DetailRecipeScreen({navigation, route}) {
                 multiline={true}
                 numberOfLines={4}
                 style={styles.textInputComment}
+                onChangeText={value => setMessage(value)}
               />
-              <Button mode="contained" style={styles.postCommentButton}>
+              <Button
+                mode="contained"
+                style={styles.postCommentButton}
+                onPress={handleComment}>
                 Post Comment
               </Button>
               <Text style={styles.titleCommentSection}>Comment :</Text>
-              <View style={styles.commentSection}>
-                <Image
-                  source={{
-                    uri: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
-                  }}
-                  style={styles.avatarProfile}
-                />
-                <View>
-                  <Text style={styles.nameComment}>Ayudia</Text>
-                  <Text style={styles.commentInput}>
-                    Nice recipe. simple and delicious, thankyou
-                  </Text>
-                </View>
-              </View>
+              {commentList
+                ?.sort(
+                  (next, prev) =>
+                    prev?._data.created_at - next?._data.created_at,
+                )
+                .map((item, key) => (
+                  <View style={styles.commentSection} key={key}>
+                    <Image
+                      source={{uri: item?._data?.photo}}
+                      style={styles.avatarProfile}
+                    />
+                    <View>
+                      <Text style={styles.nameComment}>
+                        {item?._data?.name}
+                      </Text>
+                      <Text style={styles.commentInput}>
+                        {item?._data?.comment}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
             </View>
           </View>
           {/* Body section end */}
@@ -216,6 +263,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center',
+    marginBottom: 10,
   },
   avatarProfile: {
     width: 45,
