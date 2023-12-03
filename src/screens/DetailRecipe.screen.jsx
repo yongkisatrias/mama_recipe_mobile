@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   View,
   Linking,
+  Image,
 } from 'react-native';
-import {Text, Button} from 'react-native-paper';
+import {Text, Button, TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 
 function DetailRecipeScreen({navigation, route}) {
@@ -80,11 +81,7 @@ function DetailRecipeScreen({navigation, route}) {
             {bodyView === 'video step' ? (
               <View style={{marginTop: 15}}>
                 <TouchableOpacity
-                  onPress={() =>
-                    Linking.openURL(
-                      'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-                    )
-                  }>
+                  onPress={() => Linking.openURL(youtube?.link)}>
                   <View style={styles.bodyViewSection}>
                     <Icon name="play" size={40} color="#EEC302" />
                     <View style={{paddingRight: 30}}>
@@ -97,6 +94,34 @@ function DetailRecipeScreen({navigation, route}) {
                 </TouchableOpacity>
               </View>
             ) : null}
+            {/* Comment view */}
+            <View>
+              <TextInput
+                placeholder="Comment :"
+                mode="outlined"
+                multiline={true}
+                numberOfLines={4}
+                style={styles.textInputComment}
+              />
+              <Button mode="contained" style={styles.postCommentButton}>
+                Post Comment
+              </Button>
+              <Text style={styles.titleCommentSection}>Comment :</Text>
+              <View style={styles.commentSection}>
+                <Image
+                  source={{
+                    uri: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',
+                  }}
+                  style={styles.avatarProfile}
+                />
+                <View>
+                  <Text style={styles.nameComment}>Ayudia</Text>
+                  <Text style={styles.commentInput}>
+                    Nice recipe. simple and delicious, thankyou
+                  </Text>
+                </View>
+              </View>
+            </View>
           </View>
           {/* Body section end */}
         </View>
@@ -168,6 +193,41 @@ const styles = StyleSheet.create({
   videoStepLink: {
     color: '#666666',
     fontSize: 15,
+    fontWeight: 500,
+  },
+  textInputComment: {
+    marginTop: 20,
+    paddingTop: 20,
+    backgroundColor: '#FAF7ED',
+  },
+  postCommentButton: {
+    borderRadius: 5,
+    backgroundColor: '#EFC81A',
+    paddingVertical: 5,
+    marginTop: 20,
+  },
+  titleCommentSection: {
+    marginVertical: 10,
+    fontSize: 14,
+    fontWeight: 500,
+    color: '#666666',
+  },
+  commentSection: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+  },
+  avatarProfile: {
+    width: 45,
+    height: 45,
+    borderRadius: 100,
+  },
+  nameComment: {
+    fontSize: 13,
+    fontWeight: 700,
+  },
+  commentInput: {
+    fontSize: 14,
     fontWeight: 500,
   },
 });
