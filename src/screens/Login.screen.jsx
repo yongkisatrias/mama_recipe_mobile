@@ -7,13 +7,81 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Text, TextInput, Button} from 'react-native-paper';
+import {Text, TextInput, Button, Snackbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginScreen({navigation}) {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [visible, setVisible] = React.useState(false);
+  const [messagesSnackbar, setMessagesSnackbar] = React.useState('');
+  const [snackbarBackground, setSnackbarBackground] = React.useState('');
+
+  const onDismissSnackBar = () => setVisible(false);
+
+  const handleLogin = () => {
+    firestore()
+      .collection('users')
+      .where('email', '==', email)
+      .get()
+      .then(async querySnapshot => {
+        let tempData = [];
+        querySnapshot.forEach(documentSnapshot => {
+          tempData.push(documentSnapshot);
+        });
+
+        if (tempData.length === 0) {
+          setVisible(true);
+          setMessagesSnackbar('Email not found');
+          setSnackbarBackground('#ea868f');
+        } else {
+          if (tempData[0]?._data?.password === password) {
+            setVisible(true);
+            setMessagesSnackbar('Login success');
+            setSnackbarBackground('#75b798');
+
+            await AsyncStorage.setItem(
+              'user',
+              JSON.stringify(tempData[0]._data),
+            );
+            setTimeout(() => {
+              navigation.navigate('Home');
+            }, 2000);
+          } else {
+            setVisible(true);
+            setMessagesSnackbar('Password incorrect');
+            setSnackbarBackground('#ea868f');
+          }
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        setVisible(true);
+        setMessagesSnackbar('Something wrong in our server');
+        setSnackbarBackground('#ea868f');
+      });
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
+        {/* Snackbar */}
+        <Snackbar
+          wrapperStyle={{top: 0}}
+          style={{backgroundColor: snackbarBackground, zIndex: 999}}
+          visible={visible}
+          onDismiss={onDismissSnackBar}
+          action={{
+            label: 'x',
+            onPress: () => {
+              onDismissSnackBar;
+            },
+          }}>
+          <Text style={{color: '#fff'}}>{messagesSnackbar}</Text>
+        </Snackbar>
+        {/* Snackbar end */}
         <View>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.arrowIcon}>
@@ -31,6 +99,8 @@ function LoginScreen({navigation}) {
             <TextInput
               placeholder="E-Mail"
               mode="outlined"
+              keyboardType="email-address"
+              onChangeText={value => setEmail(value)}
               left={
                 <TextInput.Icon
                   icon={() => <Image source={require('../assets/mail.png')} />}
@@ -42,6 +112,7 @@ function LoginScreen({navigation}) {
               placeholder="Password"
               mode="outlined"
               secureTextEntry
+              onChangeText={value => setPassword(value)}
               left={
                 <TextInput.Icon
                   icon={() => <Image source={require('../assets/lock.png')} />}
@@ -52,7 +123,7 @@ function LoginScreen({navigation}) {
 
             <Button
               mode="contained"
-              onPress={() => console.log('Pressed')}
+              onPress={handleLogin}
               style={styles.registerButton}>
               Log In
             </Button>
