@@ -10,6 +10,7 @@
     },
     "made": "Chef Devina Hermawan",
     "rating": "5.0",
+    "category": ["Vegetable"],
     "isPopular": true,
     "isNew": false
   },
@@ -24,6 +25,7 @@
     },
     "made": "Chef Devina Hermawan",
     "rating": "5.0",
+    "category": ["Soup"],
     "isPopular": true,
     "isNew": false
   },
@@ -37,6 +39,7 @@
       "link": "https://www.youtube.com/watch?v=ysr_nCGl0Bg"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Chicken"],
     "rating": "5.0",
     "isPopular": true,
     "isNew": false
@@ -51,6 +54,7 @@
       "link": "https://www.youtube.com/watch?v=elvQx1cy-S8"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Seafood"],
     "rating": "5.0",
     "isPopular": true,
     "isNew": false
@@ -65,6 +69,7 @@
       "link": "https://www.youtube.com/watch?v=2vR9Kc_Bhck"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Vegetable"],
     "rating": "5.0",
     "isPopular": true,
     "isNew": false
@@ -79,6 +84,7 @@
       "link": "https://www.youtube.com/watch?v=knD7CwNN9kk"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Vegetable"],
     "rating": "5.0",
     "isPopular": false,
     "isNew": true
@@ -93,6 +99,7 @@
       "link": "https://www.youtube.com/watch?v=qMT1dQy551c"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Chicken"],
     "rating": "5.0",
     "isPopular": false,
     "isNew": true
@@ -107,6 +114,7 @@
       "link": "https://www.youtube.com/watch?v=kt14bkDEJGY"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Chicken"],
     "rating": "5.0",
     "isPopular": false,
     "isNew": true
@@ -121,6 +129,7 @@
       "link": "https://www.youtube.com/watch?v=W4vWhSb1N1g"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Chicken", "Seafood"],
     "rating": "5.0",
     "isPopular": false,
     "isNew": true
@@ -135,6 +144,7 @@
       "link": "https://www.youtube.com/watch?v=CjTcwta0rJc"
     },
     "made": "Chef Devina Hermawan",
+    "category": ["Vegetable"],
     "rating": "5.0",
     "isPopular": false,
     "isNew": true
