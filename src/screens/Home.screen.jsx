@@ -34,8 +34,8 @@ function HomeScreen({navigation}) {
           <View style={styles.popularImage}>
             {[
               {
-                icons: <Image source={require('../assets/hot-soup.png')} />,
-                label: 'Soup',
+                icons: <Image source={require('../assets/sandwich.png')} />,
+                label: 'Vegetables',
               },
               {
                 icons: (
@@ -104,7 +104,7 @@ function HomeScreen({navigation}) {
                   />
                   <View>
                     <Text style={styles.recipeName}>{item.title}</Text>
-                    <Text style={styles.recipeCategory}>Spicy, Salted</Text>
+                    <Text style={styles.recipeCategory}>{item.category}</Text>
                     <View style={styles.rate}>
                       <Image source={require('../assets/icon-star.png')} />
                       <Text style={styles.rateText}>4.7</Text>
