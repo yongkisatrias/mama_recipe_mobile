@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 /* eslint-disable react-native/no-inline-styles */
 
 /**
@@ -15,7 +14,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import messaging from '@react-native-firebase/messaging';
 import firestore from '@react-native-firebase/firestore';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 
 // Screen
 import HomeScreen from './screens/Home.screen';
@@ -23,8 +21,6 @@ import DetailRecipeScreen from './screens/DetailRecipe.screen';
 import Register from './screens/Register.screen';
 import Login from './screens/Login.screen';
 import CategoryScreen from './screens/Category.screen';
-
-const Drawer = createDrawerNavigator();
 
 function App() {
   const Stack = createNativeStackNavigator();

@@ -24,7 +24,7 @@ function LoginScreen({navigation}) {
   const handleLogin = () => {
     firestore()
       .collection('users')
-      .where('email', '==', email)
+      .where('email', '==', email.toLowerCase())
       .get()
       .then(async querySnapshot => {
         let tempData = [];
@@ -37,7 +37,7 @@ function LoginScreen({navigation}) {
           setMessagesSnackbar('Email not found');
           setSnackbarBackground('#ea868f');
         } else {
-          if (tempData[0]?._data?.password === password) {
+          if (tempData[0]?._data?.password === password.toLowerCase()) {
             setVisible(true);
             setMessagesSnackbar('Login success');
             setSnackbarBackground('#75b798');

@@ -29,9 +29,9 @@ function RegisterScreen({navigation}) {
           .collection('users')
           .add({
             fullname: fullname,
-            email: email,
+            email: email.toLowerCase(),
             phone: phone,
-            password: password,
+            password: password.toLowerCase(),
             created_at: new Date().getTime(),
           })
           .then(() => {

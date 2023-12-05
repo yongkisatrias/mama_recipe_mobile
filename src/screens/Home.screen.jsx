@@ -92,7 +92,7 @@ function HomeScreen({navigation}) {
           {/* Popular recipe */}
           <Text style={styles.popularRecipeSection}>Popular Recipes</Text>
           {recipeList
-            ?.filter(item => item.isPopular === true)
+            ?.filter(item => item.isPopular)
             .map((item, key) => (
               <TouchableOpacity
                 key={key}
