@@ -34,8 +34,8 @@ function HomeScreen({navigation}) {
           <View style={styles.popularImage}>
             {[
               {
-                icons: <Image source={require('../assets/sandwich.png')} />,
-                label: 'Vegetables',
+                icons: <Image source={require('../assets/hot-soup.png')} />,
+                label: 'Soup',
               },
               {
                 icons: (

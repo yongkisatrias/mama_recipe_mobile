@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 /* eslint-disable react-native/no-inline-styles */
 
 /**
@@ -7,19 +8,47 @@
  * @format
  */
 
+// import 'react-native-gesture-handler';
 import React from 'react';
 import {PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import messaging from '@react-native-firebase/messaging';
+import firestore from '@react-native-firebase/firestore';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 // Screen
 import HomeScreen from './screens/Home.screen';
 import DetailRecipeScreen from './screens/DetailRecipe.screen';
 import Register from './screens/Register.screen';
 import Login from './screens/Login.screen';
+import CategoryScreen from './screens/Category.screen';
+
+const Drawer = createDrawerNavigator();
 
 function App() {
   const Stack = createNativeStackNavigator();
+
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      getToken();
+    }
+  };
+
+  const getToken = async () => {
+    const token = await messaging().getToken();
+
+    firestore().collection('tokenList').doc(token).set({});
+  };
+
+  React.useEffect(() => {
+    requestUserPermission();
+  }, []);
 
   return (
     <NavigationContainer>
@@ -33,6 +62,11 @@ function App() {
           <Stack.Screen
             name="Detail_Recipe"
             component={DetailRecipeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Category"
+            component={CategoryScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
