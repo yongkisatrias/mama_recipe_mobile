@@ -12,6 +12,7 @@ import React from 'react';
 import {PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import messaging from '@react-native-firebase/messaging';
 import firestore from '@react-native-firebase/firestore';
 
@@ -21,9 +22,11 @@ import DetailRecipeScreen from './screens/DetailRecipe.screen';
 import Register from './screens/Register.screen';
 import Login from './screens/Login.screen';
 import CategoryScreen from './screens/Category.screen';
+import HamburgerMenu from './screens/HamburgerMenu';
 
 function App() {
   const Stack = createNativeStackNavigator();
+  const Tab = createBottomTabNavigator();
 
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
@@ -73,6 +76,11 @@ function App() {
           <Stack.Screen
             name="Login"
             component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Hamburger_Menu"
+            component={HamburgerMenu}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

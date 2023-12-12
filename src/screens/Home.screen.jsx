@@ -19,15 +19,28 @@ function HomeScreen({navigation}) {
     <SafeAreaView>
       <ScrollView>
         <View style={styles.root}>
-          {/* Searchbar */}
-          <Searchbar
-            placeholder="Search Pasta, Bread, etc"
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-            style={styles.searchbar}
-            placeholderTextColor={'#B6B6B6'}
-          />
-          {/* Searchbar end */}
+          <View style={{flexDirection: 'row', gap: 20}}>
+            {/* Searchbar */}
+            <View style={{width: '85%'}}>
+              <Searchbar
+                placeholder="Search Pasta, Bread, etc"
+                onChangeText={onChangeSearch}
+                value={searchQuery}
+                style={styles.searchbar}
+                placeholderTextColor={'#B6B6B6'}
+              />
+            </View>
+            {/* Hamburger Menu */}
+            <View style={{width: '15%', marginTop: 10}}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Hamburger_Menu')}>
+                <Image
+                  source={require('../assets/hamburger-menu.png')}
+                  style={{width: 40, height: 40}}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
 
           {/* Popular section */}
           <Text style={styles.popularSection}>Popular for You</Text>
