@@ -8,8 +8,16 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function HamburgerMenu({navigation}) {
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('user');
+    setTimeout(() => {
+      navigation.navigate('Home');
+    });
+  };
+
   return (
     <SafeAreaView>
       <ScrollView style={{backgroundColor: '#EEC302', height: '100%'}}>
@@ -33,7 +41,9 @@ function HamburgerMenu({navigation}) {
               <Text style={styles.profileMenu}>Profile</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('')}>
-              <Text style={styles.logoutMenu}>Logout</Text>
+              <Text style={styles.logoutMenu} onPress={handleLogout}>
+                Logout
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
