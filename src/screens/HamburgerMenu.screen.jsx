@@ -31,20 +31,24 @@ function HamburgerMenu({navigation}) {
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text style={styles.homeMenu}>Home</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.loginMenu}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <Text style={styles.registerMenu}>Register</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('')}>
-              <Text style={styles.profileMenu}>Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('')}>
-              <Text style={styles.logoutMenu} onPress={handleLogout}>
-                Logout
-              </Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.loginMenu}>Login</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.registerMenu}>Register</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                <Text style={styles.profileMenu}>Profile</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.logoutMenu} onPress={handleLogout}>
+                  Logout
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
