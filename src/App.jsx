@@ -20,7 +20,8 @@ import DetailRecipeScreen from './screens/DetailRecipe.screen';
 import Register from './screens/Register.screen';
 import Login from './screens/Login.screen';
 import CategoryScreen from './screens/Category.screen';
-import HamburgerMenu from './screens/HamburgerMenu';
+import HamburgerMenu from './screens/HamburgerMenu.screen';
+import Profile from './screens/Profile.screen';
 
 function App() {
   const Stack = createNativeStackNavigator();
@@ -78,6 +79,11 @@ function App() {
           <Stack.Screen
             name="Hamburger_Menu"
             component={HamburgerMenu}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
