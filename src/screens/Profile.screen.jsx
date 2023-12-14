@@ -26,7 +26,56 @@ function ProfileScreen({navigation}) {
           />
           <Text style={styles.profileName}>Mareta Lopeda</Text>
         </View>
-        <View style={styles.mainSection}></View>
+        <View style={styles.mainSection}>
+          <View>
+            <View style={styles.editProfileSection}>
+              <View style={styles.editProfile}>
+                <Image
+                  source={require('../assets/user-profile.png')}
+                  style={{width: 30, height: 30}}
+                />
+                <Text style={{fontSize: 20, fontWeight: 500}}>
+                  Edit Profile
+                </Text>
+              </View>
+              <Icon name="right" size={25} color="green" />
+            </View>
+            <View style={styles.editProfileSection}>
+              <View style={styles.editProfile}>
+                <Image
+                  source={require('../assets/award.png')}
+                  style={{width: 30, height: 30}}
+                />
+                <Text style={{fontSize: 20, fontWeight: 500}}>My Recipe</Text>
+              </View>
+              <Icon name="right" size={25} color="green" />
+            </View>
+            <View style={styles.editProfileSection}>
+              <View style={styles.editProfile}>
+                <Image
+                  source={require('../assets/bookmark.png')}
+                  style={{width: 30, height: 30}}
+                />
+                <Text style={{fontSize: 20, fontWeight: 500}}>
+                  Saved Recipe
+                </Text>
+              </View>
+              <Icon name="right" size={25} color="green" />
+            </View>
+            <View style={styles.editProfileSection}>
+              <View style={styles.editProfile}>
+                <Image
+                  source={require('../assets/liked.png')}
+                  style={{width: 30, height: 30}}
+                />
+                <Text style={{fontSize: 20, fontWeight: 500}}>
+                  Liked Recipe
+                </Text>
+              </View>
+              <Icon name="right" size={25} color="green" />
+            </View>
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -38,7 +87,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEC302',
   },
   mainSection: {
-    height: 400,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginTop: -40,
+    backgroundColor: 'white',
+    height: 500,
   },
   arrowIcon: {
     paddingTop: 15,
@@ -57,6 +110,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     color: '#fff',
+  },
+  editProfileSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 25,
+    marginTop: 35,
+  },
+  editProfile: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 20,
   },
 });
 
