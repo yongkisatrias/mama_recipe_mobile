@@ -7,7 +7,6 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import {Searchbar, Text} from 'react-native-paper';
 import recipeList from '../data/recipe.json';

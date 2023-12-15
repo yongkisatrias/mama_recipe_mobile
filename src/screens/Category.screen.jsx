@@ -1,8 +1,13 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
+import recipeList from '../data/recipe.json';
 
-function CategoryScreen() {
-  return <Text>Test</Text>;
+function CategoryScreen({navigation}) {
+  return (
+    <SafeAreaView>
+      <ScrollView></ScrollView>
+    </SafeAreaView>
+  );
 }
 
 export default CategoryScreen;
