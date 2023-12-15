@@ -9,8 +9,16 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function ProfileScreen({navigation}) {
+  const [data, setData] = React.useState({});
+
+  (async () => {
+    const user = await AsyncStorage.getItem('user');
+    setData(JSON.parse(user));
+  })();
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -21,10 +29,10 @@ function ProfileScreen({navigation}) {
             </Text>
           </TouchableOpacity>
           <Image
-            source={require('../assets/user-profile-dummy.png')}
+            source={require('../assets/user-profile-icon.png')}
             style={styles.profilePicture}
           />
-          <Text style={styles.profileName}>Mareta Lopeda</Text>
+          <Text style={styles.profileName}>{data?.fullname ?? 'Username'}</Text>
         </View>
         <View style={styles.mainSection}>
           <View>
