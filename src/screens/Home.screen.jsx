@@ -7,13 +7,18 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import {Searchbar, Text} from 'react-native-paper';
 import recipeList from '../data/recipe.json';
 
 function HomeScreen({navigation}) {
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
+  const [keyword, setKeyword] = React.useState(null);
+
+  // Update the keyword when the user types
+  const handleKeywordChange = newKeyword => {
+    setKeyword(newKeyword);
+  };
 
   return (
     <SafeAreaView>
@@ -24,8 +29,8 @@ function HomeScreen({navigation}) {
             <View style={{width: '85%'}}>
               <Searchbar
                 placeholder="Search Pasta, Bread, etc"
-                onChangeText={onChangeSearch}
-                value={searchQuery}
+                value={keyword}
+                onChangeText={handleKeywordChange}
                 style={styles.searchbar}
                 placeholderTextColor={'#B6B6B6'}
               />
@@ -41,6 +46,37 @@ function HomeScreen({navigation}) {
               </TouchableOpacity>
             </View>
           </View>
+
+          {/* Search view */}
+          {keyword ? (
+            <View>
+              {recipeList
+                .filter(item =>
+                  item.title.toLowerCase().includes(keyword.toLowerCase()),
+                )
+                .map((item, key) => (
+                  <View style={styles.searchContainer} key={key}>
+                    <TouchableOpacity
+                      style={styles.searchContent}
+                      onPress={() =>
+                        navigation.navigate('Detail_Recipe', item)
+                      }>
+                      <View style={styles.searchView}>
+                        <Image
+                          source={{uri: item.image}}
+                          width={50}
+                          height={50}
+                          style={{borderRadius: 10}}
+                        />
+                        <Text style={{fontSize: 15, fontWeight: 500}}>
+                          {item.title}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                ))}
+            </View>
+          ) : null}
 
           {/* Popular section */}
           <Text style={styles.popularSection}>Popular for You</Text>
@@ -217,6 +253,20 @@ const styles = StyleSheet.create({
   rateText: {
     fontSize: 12,
     fontWeight: 400,
+  },
+  searchContainer: {
+    marginTop: 10,
+  },
+
+  searchContent: {
+    borderRadius: 10,
+    backgroundColor: '#EEC302',
+  },
+  searchView: {
+    flexDirection: 'row',
+    padding: 10,
+    alignItems: 'center',
+    gap: 15,
   },
 });
 
