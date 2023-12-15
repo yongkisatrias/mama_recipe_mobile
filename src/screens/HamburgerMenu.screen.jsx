@@ -18,6 +18,13 @@ function HamburgerMenu({navigation}) {
     });
   };
 
+  const [cekUser, setUser] = React.useState(null);
+
+  (async () => {
+    const user = await AsyncStorage.getItem('user');
+    setUser(user);
+  })();
+
   return (
     <SafeAreaView>
       <ScrollView style={{backgroundColor: '#EEC302', height: '100%'}}>
@@ -31,24 +38,35 @@ function HamburgerMenu({navigation}) {
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text style={styles.homeMenu}>Home</Text>
             </TouchableOpacity>
-            <View>
-              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.loginMenu}>Login</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                <Text style={styles.registerMenu}>Register</Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                <Text style={styles.profileMenu}>Profile</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.logoutMenu} onPress={handleLogout}>
-                  Logout
-                </Text>
-              </TouchableOpacity>
-            </View>
+            {!cekUser ? (
+              <View
+                style={{
+                  alignItems: 'center',
+                }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                  <Text style={styles.loginMenu}>Login</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Register')}>
+                  <Text style={styles.registerMenu}>Register</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View
+                style={{
+                  alignItems: 'center',
+                }}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Profile')}>
+                  <Text style={styles.profileMenu}>Profile</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                  <Text style={styles.logoutMenu} onPress={handleLogout}>
+                    Logout
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </View>
       </ScrollView>
