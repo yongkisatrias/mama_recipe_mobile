@@ -43,6 +43,7 @@ function LoginScreen({navigation}) {
           setSnackbarBackground('#ea868f');
         } else {
           if (tempData[0]?._data?.password === password.toLowerCase()) {
+            dispatch(auth.setUsers(tempData[0]._data));
             setVisible(true);
             setMessagesSnackbar('Login success');
             setSnackbarBackground('#75b798');
