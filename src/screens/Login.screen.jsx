@@ -11,6 +11,8 @@ import {Text, TextInput, Button, Snackbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import * as auth from '../redux/slices/auth';
 
 function LoginScreen({navigation}) {
   const [email, setEmail] = React.useState('');
@@ -18,6 +20,9 @@ function LoginScreen({navigation}) {
   const [visible, setVisible] = React.useState(false);
   const [messagesSnackbar, setMessagesSnackbar] = React.useState('');
   const [snackbarBackground, setSnackbarBackground] = React.useState('');
+
+  const {users} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
 
   const onDismissSnackBar = () => setVisible(false);
 
