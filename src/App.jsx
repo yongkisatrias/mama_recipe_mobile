@@ -13,6 +13,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import messaging from '@react-native-firebase/messaging';
 import firestore from '@react-native-firebase/firestore';
+import store from './store';
+import {Provider} from 'react-redux';
 
 // Screen
 import HomeScreen from './screens/Home.screen';
@@ -50,6 +52,7 @@ function App() {
   return (
     <NavigationContainer>
       <PaperProvider>
+        <Provider store={store} />
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
