@@ -25,6 +25,7 @@ import Login from './screens/Login.screen';
 import CategoryScreen from './screens/Category.screen';
 import HamburgerMenu from './screens/HamburgerMenu.screen';
 import Profile from './screens/Profile.screen';
+import EditProfileScreen from './screens/EditProfile.screen';
 
 function App() {
   const Stack = createNativeStackNavigator();
@@ -89,6 +90,11 @@ function App() {
               <Stack.Screen
                 name="Profile"
                 component={Profile}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="EditProfile"
+                component={EditProfileScreen}
                 options={{headerShown: false}}
               />
             </Stack.Navigator>

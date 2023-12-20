@@ -37,15 +37,18 @@ function ProfileScreen({navigation}) {
         <View style={styles.mainSection}>
           <View>
             <View style={styles.editProfileSection}>
-              <View style={styles.editProfile}>
-                <Image
-                  source={require('../assets/user-profile.png')}
-                  style={{width: 30, height: 30}}
-                />
-                <Text style={{fontSize: 20, fontWeight: 500}}>
-                  Edit Profile
-                </Text>
-              </View>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('EditProfile')}>
+                <View style={styles.editProfile}>
+                  <Image
+                    source={require('../assets/user-profile.png')}
+                    style={{width: 30, height: 30}}
+                  />
+                  <Text style={{fontSize: 20, fontWeight: 500}}>
+                    Edit Profile
+                  </Text>
+                </View>
+              </TouchableOpacity>
               <Icon name="right" size={25} color="green" />
             </View>
             <View style={styles.editProfileSection}>
